@@ -8,11 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: SpeedRacerBot
     steps:
       - uses: actions/checkout@v4
+
+      - name: Unpack project
+        run: unzip -q SpeedRacerBot.zip
 
       - uses: actions/setup-java@v4
         with:
@@ -22,9 +22,9 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.9
-          build-root-directory: SpeedRacerBot
 
       - name: Build debug APK
+        working-directory: SpeedRacerBot
         run: gradle :app:assembleDebug --no-daemon
 
       - uses: actions/upload-artifact@v4
