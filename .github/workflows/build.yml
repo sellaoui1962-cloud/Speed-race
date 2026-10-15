@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: SpeedRacerBot
     steps:
       - uses: actions/checkout@v4
 
@@ -19,6 +22,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.9
+          build-root-directory: SpeedRacerBot
 
       - name: Build debug APK
         run: gradle :app:assembleDebug --no-daemon
@@ -26,4 +30,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: SpeedBot-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: SpeedRacerBot/app/build/outputs/apk/debug/app-debug.apk
